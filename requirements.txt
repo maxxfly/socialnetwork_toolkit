@@ -1,0 +1,6 @@
+requests
+selenium
+regex
+SQLAlchemy
+alembic
+progressbar2

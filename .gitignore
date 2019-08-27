@@ -1,0 +1,23 @@
+lib/__pycache__
+
+data/*.db
+system/*.jpg
+
+list.txt
+
+*.log
+
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# pyenv
+.python-version
+
+# Environments
+.env
+env/
