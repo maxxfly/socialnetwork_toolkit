@@ -94,6 +94,6 @@ if(query and query.id):
     if args.simulate == False:
         query.use_on_twitter = True
         session.commit()
-        driver.find_elements_by_css_selector('[data-testid=tweetButtonInline]')[0].click()
+        driver.find_elements_by_css_selector('[data-testid=tweetButton]')[0].click()
         time.sleep(5)
         driver.close()
