@@ -8,6 +8,8 @@ from random import *
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy import and_
+from sqlalchemy.sql.expression import func
 
 import time
 import requests
@@ -40,6 +42,8 @@ def login(driver, email, password):
     driver.find_elements_by_css_selector("button.submit")[0].click()
 
 def add_picture(driver, path, message, url_target):
+    driver.get('https://twitter.com/compose/tweet')
+
     driver.implicitly_wait(3)
     time.sleep(3)
 
@@ -74,14 +78,14 @@ e = create_engine('sqlite:///data/file.db')
 Session = sessionmaker(bind=e)
 session = Session()
 
-query = session.query(Post).filter(Post.use_on_twitter == False,
-                                   Post.description < 280).order_by(Post.posted_at).first()
-
+query = session.query(Post).filter(and_(Post.use_on_twitter == False,
+                                        func.length(Post.description) < 280)).order_by(Post.posted_at).first()
 if(query and query.id):
     options = Options()
     options.headless = args.headless
 
     driver = webdriver.Firefox(options=options)
+    driver.set_window_size(600,800)
 
     login(driver, args.username, args.password)
     add_picture(driver, (dirpath + "/system/" + query.key + ".jpg"), query.description, query.url_target)

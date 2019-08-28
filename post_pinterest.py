@@ -6,6 +6,8 @@ from random import *
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy import and_
+from sqlalchemy.sql.expression import func
 
 import time
 import requests
@@ -77,8 +79,8 @@ e = create_engine('sqlite:///data/file.db')
 Session = sessionmaker(bind=e)
 session = Session()
 
-query = session.query(Post).filter(Post.use_on_pinterest == False,
-                                   Post.description < 500).order_by(Post.posted_at).first()
+query = session.query(Post).filter(and_(Post.use_on_pinterest == False,
+                                        func.length(Post.description) < 500)).order_by(Post.posted_at).first()
 
 if(query and query.id):
     options = Options()
