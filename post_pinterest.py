@@ -31,16 +31,17 @@ def login(driver, email, password):
     driver.find_element_by_name("password").send_keys(password)
 
     driver.find_elements_by_css_selector("[data-test-id=registerFormSubmitButton] > button")[0].click()
-    time.sleep(15)
+    time.sleep(10)
 
 def add_picture(driver, path, message, board, url_target):
-    driver.find_elements_by_css_selector(".addPinFooter")[0].click()
-    driver.find_element_by_id("cancelInstallButton").click()
+    #driver.find_elements_by_css_selector(".addPinFooter")[0].click()
+    #driver.find_element_by_id("cancelInstallButton").click()
 
-    driver.find_elements_by_css_selector(".addPinFooter")[0].click()
-    driver.find_elements_by_css_selector("[data-test-id=createAPin] [role=button]")[0].click()
+    #driver.find_elements_by_css_selector(".addPinFooter")[0].click()
+    #driver.find_elements_by_css_selector("[data-test-id=createAPin] [role=button]")[0].click()
+    driver.get('https://www.pinterest.fr/pin-builder/')
 
-    time.sleep(2)
+    time.sleep(4)
 
     driver.find_elements_by_tag_name("textarea")[1].send_keys(message)
 
@@ -87,6 +88,7 @@ if(query and query.id):
     options.headless = args.headless
 
     driver = webdriver.Firefox(options=options)
+    driver.set_window_size(900,800)
 
     login(driver, args.username, args.password)
     add_picture(driver, (dirpath + "/system/" + query.key + ".jpg"), query.description, args.board, query.url_target)
