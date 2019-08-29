@@ -51,7 +51,7 @@ def add_picture(driver, path, message, url_target):
     el.send_keys(message)
 
     if url_target:
-        el.send_keys(" " + url_target)
+        el.send_keys(" 👉 " + url_target + " 🌎 ")
 
     #el.send_keys(Keys.ESCAPE)
 
